@@ -55,8 +55,10 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.G
             for(int j = 0; j < q.getQuestionChoices().length; j++){
                 RadioButton button = new RadioButton(this);
                 button.setId(j+1);
-                button.setText(q.getQuestionChoices().);
+                button.setText(q.getQuestionChoices()[j]);
+                radioGroup.addView(button);
             }
+        //check correct answer and move to next question
 
         }
 
