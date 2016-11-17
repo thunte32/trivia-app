@@ -33,7 +33,7 @@ public class GetImageAsync extends AsyncTask<URL, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-
+        activity.setImage(bitmap);
         super.onPostExecute(bitmap);
     }
     public interface GetImage{

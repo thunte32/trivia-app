@@ -76,6 +76,7 @@
         android:layout_alignTop="@+id/triviaQuitButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:onClick="nextButton"
         android:id="@+id/triviaNextButton" />
 
     <ProgressBar

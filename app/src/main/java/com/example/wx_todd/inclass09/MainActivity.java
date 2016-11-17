@@ -7,19 +7,22 @@ import android.net.NetworkInfo;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GetTriviaAsync.QuestionGetter {
     final static String TRIVIA_URL =
-            "http://dev.theappsdr.com/apis/trivia_json/index.php.";
+            "http://dev.theappsdr.com/apis/trivia_json/index.php";
     final static String QUESTIONS_TAG = "question";
     Button exitButton, startButton;
     ArrayList<Question> questions = new ArrayList<>();
     TextView triviaText;
+    ProgressBar progressBar;
 
 
     @Override
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements GetTriviaAsync.Qu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        progressBar = (ProgressBar) findViewById(R.id.mainActivityBar);
+        progressBar.setVisibility(View.VISIBLE);
         triviaText = (TextView) findViewById(R.id.triviaReadyText);
         triviaText.setVisibility(View.INVISIBLE);
 
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements GetTriviaAsync.Qu
         startButton.setEnabled(false);
 
         if (isConnected()) {
-            new GetTriviaAsync(this, this).execute(TRIVIA_URL);
+            new GetTriviaAsync(MainActivity.this, MainActivity.this).execute(TRIVIA_URL);
         }
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements GetTriviaAsync.Qu
                 Intent intent = new Intent(MainActivity.this, TriviaActivity.class);
                 intent.putExtra(QUESTIONS_TAG, questions);
                 startActivity(intent);
+                triviaText.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                finish();
             }
         });
 
@@ -61,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements GetTriviaAsync.Qu
         this.questions = questions;
         startButton.setEnabled(true);
         triviaText.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
     public boolean isConnected() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

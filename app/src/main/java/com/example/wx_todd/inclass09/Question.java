@@ -26,7 +26,12 @@ public class Question implements Serializable {
         else
             imageUrl = null;
         getChoiceArray(jsonObject.getJSONObject("choices").getJSONArray("choice"));
-        answer = Integer.parseInt(jsonObject.getString("answer"));
+        try {
+            answer = Integer.parseInt(jsonObject.getJSONObject("choices").getString("answer"));
+        }
+        catch (NumberFormatException nfe){
+            nfe.printStackTrace();
+        }
 
     }
     private void getChoiceArray(JSONArray jsonArray) throws JSONException {

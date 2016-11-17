@@ -60,4 +60,14 @@
         android:layout_marginTop="55dp"
         android:id="@+id/triviaReadyText" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/triviaReadyText"
+        android:layout_alignRight="@+id/triviaReadyText"
+        android:layout_alignEnd="@+id/triviaReadyText"
+        android:layout_marginTop="18dp"
+        android:id="@+id/mainActivityBar" />
+
 </RelativeLayout>
